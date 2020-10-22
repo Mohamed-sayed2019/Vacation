@@ -1,0 +1,341 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="VactionsystemModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="department">
+          <Key>
+            <PropertyRef Name="dep_id" />
+          </Key>
+          <Property Name="dep_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="dep_name" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Name="UserId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserName" Type="nvarchar(max)" />
+          <Property Name="postion" Type="nvarchar" MaxLength="50" />
+          <Property Name="department" Type="nvarchar(max)" />
+          <Property Name="parent" Type="int" />
+          <Property Name="userrole" Type="int" />
+          <Property Name="user_name" Type="nvarchar" MaxLength="50" />
+          <Property Name="password" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="userrole">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="name" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="vaction">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="userid" Type="int" />
+          <Property Name="vac_from" Type="date" />
+          <Property Name="vac_to" Type="date" />
+          <Property Name="Returning" Type="date" />
+          <Property Name="duratin" Type="float" />
+          <Property Name="notes" Type="nvarchar(max)" />
+          <Property Name="submissiondate" Type="date" />
+        </EntityType>
+        <EntityType Name="vactioncridit">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="userid" Type="int" />
+          <Property Name="cridiet" Type="float" />
+        </EntityType>
+        <Association Name="FK_User_User1">
+          <End Role="User" Type="Self.User" Multiplicity="0..1" />
+          <End Role="User1" Type="Self.User" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="User1">
+              <PropertyRef Name="parent" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_User_userrole">
+          <End Role="userrole" Type="Self.userrole" Multiplicity="0..1" />
+          <End Role="User" Type="Self.User" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="userrole">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="User">
+              <PropertyRef Name="userrole" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_vaction_User">
+          <End Role="User" Type="Self.User" Multiplicity="0..1" />
+          <End Role="vaction" Type="Self.vaction" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="vaction">
+              <PropertyRef Name="userid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_vactioncridit_User">
+          <End Role="User" Type="Self.User" Multiplicity="1" />
+          <End Role="vactioncridit" Type="Self.vactioncridit" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="vactioncridit">
+              <PropertyRef Name="id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="VactionsystemModelStoreContainer">
+          <EntitySet Name="department" EntityType="Self.department" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="User" EntityType="Self.User" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="userrole" EntityType="Self.userrole" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="vaction" EntityType="Self.vaction" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="vactioncridit" EntityType="Self.vactioncridit" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_User_User1" Association="Self.FK_User_User1">
+            <End Role="User" EntitySet="User" />
+            <End Role="User1" EntitySet="User" />
+          </AssociationSet>
+          <AssociationSet Name="FK_User_userrole" Association="Self.FK_User_userrole">
+            <End Role="userrole" EntitySet="userrole" />
+            <End Role="User" EntitySet="User" />
+          </AssociationSet>
+          <AssociationSet Name="FK_vaction_User" Association="Self.FK_vaction_User">
+            <End Role="User" EntitySet="User" />
+            <End Role="vaction" EntitySet="vaction" />
+          </AssociationSet>
+          <AssociationSet Name="FK_vactioncridit_User" Association="Self.FK_vactioncridit_User">
+            <End Role="User" EntitySet="User" />
+            <End Role="vactioncridit" EntitySet="vactioncridit" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="VactionsystemModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="department">
+          <Key>
+            <PropertyRef Name="dep_id" />
+          </Key>
+          <Property Name="dep_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="dep_name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Name="UserId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="postion" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="department" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="parent" Type="Int32" />
+          <Property Name="userrole" Type="Int32" />
+          <Property Name="user_name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="password" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="User1" Relationship="Self.FK_User_User1" FromRole="User" ToRole="User1" />
+          <NavigationProperty Name="User2" Relationship="Self.FK_User_User1" FromRole="User1" ToRole="User" />
+          <NavigationProperty Name="userrole1" Relationship="Self.FK_User_userrole" FromRole="User" ToRole="userrole" />
+          <NavigationProperty Name="vactions" Relationship="Self.FK_vaction_User" FromRole="User" ToRole="vaction" />
+          <NavigationProperty Name="vactioncridit" Relationship="Self.FK_vactioncridit_User" FromRole="User" ToRole="vactioncridit" />
+        </EntityType>
+        <EntityType Name="userrole">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Users" Relationship="Self.FK_User_userrole" FromRole="userrole" ToRole="User" />
+        </EntityType>
+        <EntityType Name="vaction">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="userid" Type="Int32" />
+          <Property Name="vac_from" Type="DateTime" Precision="0" />
+          <Property Name="vac_to" Type="DateTime" Precision="0" />
+          <Property Name="Returning" Type="DateTime" Precision="0" />
+          <Property Name="duratin" Type="Double" />
+          <Property Name="notes" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="submissiondate" Type="DateTime" Precision="0" />
+          <NavigationProperty Name="User" Relationship="Self.FK_vaction_User" FromRole="vaction" ToRole="User" />
+        </EntityType>
+        <EntityType Name="vactioncridit">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="userid" Type="Int32" />
+          <Property Name="cridiet" Type="Double" />
+          <NavigationProperty Name="User" Relationship="Self.FK_vactioncridit_User" FromRole="vactioncridit" ToRole="User" />
+        </EntityType>
+        <Association Name="FK_User_User1">
+          <End Role="User" Type="Self.User" Multiplicity="0..1" />
+          <End Role="User1" Type="Self.User" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="User1">
+              <PropertyRef Name="parent" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_User_userrole">
+          <End Role="userrole" Type="Self.userrole" Multiplicity="0..1" />
+          <End Role="User" Type="Self.User" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="userrole">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="User">
+              <PropertyRef Name="userrole" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_vaction_User">
+          <End Role="User" Type="Self.User" Multiplicity="0..1" />
+          <End Role="vaction" Type="Self.vaction" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="vaction">
+              <PropertyRef Name="userid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_vactioncridit_User">
+          <End Role="User" Type="Self.User" Multiplicity="1" />
+          <End Role="vactioncridit" Type="Self.vactioncridit" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="vactioncridit">
+              <PropertyRef Name="id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="VactionsystemEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="departments" EntityType="Self.department" />
+          <EntitySet Name="Users" EntityType="Self.User" />
+          <EntitySet Name="userroles" EntityType="Self.userrole" />
+          <EntitySet Name="vactions" EntityType="Self.vaction" />
+          <EntitySet Name="vactioncridits" EntityType="Self.vactioncridit" />
+          <AssociationSet Name="FK_User_User1" Association="Self.FK_User_User1">
+            <End Role="User" EntitySet="Users" />
+            <End Role="User1" EntitySet="Users" />
+          </AssociationSet>
+          <AssociationSet Name="FK_User_userrole" Association="Self.FK_User_userrole">
+            <End Role="userrole" EntitySet="userroles" />
+            <End Role="User" EntitySet="Users" />
+          </AssociationSet>
+          <AssociationSet Name="FK_vaction_User" Association="Self.FK_vaction_User">
+            <End Role="User" EntitySet="Users" />
+            <End Role="vaction" EntitySet="vactions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_vactioncridit_User" Association="Self.FK_vactioncridit_User">
+            <End Role="User" EntitySet="Users" />
+            <End Role="vactioncridit" EntitySet="vactioncridits" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="VactionsystemModelStoreContainer" CdmEntityContainer="VactionsystemEntities">
+          <EntitySetMapping Name="departments">
+            <EntityTypeMapping TypeName="VactionsystemModel.department">
+              <MappingFragment StoreEntitySet="department">
+                <ScalarProperty Name="dep_id" ColumnName="dep_id" />
+                <ScalarProperty Name="dep_name" ColumnName="dep_name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Users">
+            <EntityTypeMapping TypeName="VactionsystemModel.User">
+              <MappingFragment StoreEntitySet="User">
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="postion" ColumnName="postion" />
+                <ScalarProperty Name="department" ColumnName="department" />
+                <ScalarProperty Name="parent" ColumnName="parent" />
+                <ScalarProperty Name="userrole" ColumnName="userrole" />
+                <ScalarProperty Name="user_name" ColumnName="user_name" />
+                <ScalarProperty Name="password" ColumnName="password" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="userroles">
+            <EntityTypeMapping TypeName="VactionsystemModel.userrole">
+              <MappingFragment StoreEntitySet="userrole">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="name" ColumnName="name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="vactions">
+            <EntityTypeMapping TypeName="VactionsystemModel.vaction">
+              <MappingFragment StoreEntitySet="vaction">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="userid" ColumnName="userid" />
+                <ScalarProperty Name="vac_from" ColumnName="vac_from" />
+                <ScalarProperty Name="vac_to" ColumnName="vac_to" />
+                <ScalarProperty Name="Returning" ColumnName="Returning" />
+                <ScalarProperty Name="duratin" ColumnName="duratin" />
+                <ScalarProperty Name="notes" ColumnName="notes" />
+                <ScalarProperty Name="submissiondate" ColumnName="submissiondate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="vactioncridits">
+            <EntityTypeMapping TypeName="VactionsystemModel.vactioncridit">
+              <MappingFragment StoreEntitySet="vactioncridit">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="userid" ColumnName="userid" />
+                <ScalarProperty Name="cridiet" ColumnName="cridiet" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

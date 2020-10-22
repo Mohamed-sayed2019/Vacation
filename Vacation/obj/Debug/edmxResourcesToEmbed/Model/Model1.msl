@@ -1,0 +1,58 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="VactionsystemModelStoreContainer" CdmEntityContainer="VactionsystemEntities">
+    <EntitySetMapping Name="departments">
+      <EntityTypeMapping TypeName="VactionsystemModel.department">
+        <MappingFragment StoreEntitySet="department">
+          <ScalarProperty Name="dep_id" ColumnName="dep_id" />
+          <ScalarProperty Name="dep_name" ColumnName="dep_name" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Users">
+      <EntityTypeMapping TypeName="VactionsystemModel.User">
+        <MappingFragment StoreEntitySet="User">
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="UserName" ColumnName="UserName" />
+          <ScalarProperty Name="postion" ColumnName="postion" />
+          <ScalarProperty Name="department" ColumnName="department" />
+          <ScalarProperty Name="parent" ColumnName="parent" />
+          <ScalarProperty Name="userrole" ColumnName="userrole" />
+          <ScalarProperty Name="user_name" ColumnName="user_name" />
+          <ScalarProperty Name="password" ColumnName="password" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="userroles">
+      <EntityTypeMapping TypeName="VactionsystemModel.userrole">
+        <MappingFragment StoreEntitySet="userrole">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="name" ColumnName="name" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="vactions">
+      <EntityTypeMapping TypeName="VactionsystemModel.vaction">
+        <MappingFragment StoreEntitySet="vaction">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="userid" ColumnName="userid" />
+          <ScalarProperty Name="vac_from" ColumnName="vac_from" />
+          <ScalarProperty Name="vac_to" ColumnName="vac_to" />
+          <ScalarProperty Name="Returning" ColumnName="Returning" />
+          <ScalarProperty Name="duratin" ColumnName="duratin" />
+          <ScalarProperty Name="notes" ColumnName="notes" />
+          <ScalarProperty Name="submissiondate" ColumnName="submissiondate" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="vactioncridits">
+      <EntityTypeMapping TypeName="VactionsystemModel.vactioncridit">
+        <MappingFragment StoreEntitySet="vactioncridit">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="userid" ColumnName="userid" />
+          <ScalarProperty Name="cridiet" ColumnName="cridiet" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>
